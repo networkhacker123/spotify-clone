@@ -11,7 +11,7 @@ npm start
 
 Open http://localhost:3000.
 
-Create an account. Select **I want to upload music as an artist** if you want to upload audio. Any signed-in account can save songs to Liked Songs.
+Create an account. Select **I want to upload music as an artist** if you want to upload audio. Any signed-in account can save songs to Liked Songs and dislike and can do various other actions.
 
 ## Storage modes
 
