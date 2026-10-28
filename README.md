@@ -1,6 +1,6 @@
 # Pulse
 
-A Spotify-inspired music demo built with HTML, CSS, browser JavaScript, Node.js, Express, and MongoDB. It includes 12 original CC0 starter songs, artist uploads, a saved library, and a Database Mode view.
+A Spotify-inspired music demo built with HTML, CSS, browser JavaScript, Node.js, Express, and MongoDB. It includes 12 original CC0 starter songs, artist uploads, a saved library, and a Database Mode view...
 
 ## Run
 
