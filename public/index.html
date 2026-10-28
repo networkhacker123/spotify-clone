@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#121212">
+  <title>Pulse — Listen your way</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.3 16.3 5 5"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 4v16M9 4v16M14 4v16M19 6v14"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m4 5 10 7-10 7V5ZM18 5v14"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4ZM17 9a5 5 0 0 1 0 6M20 6a9 9 0 0 1 0 12"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 16v4h16v-4"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 7l11-2"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Pulse home"><span class="brand-mark"><span></span><span></span><span></span></span><span>pulse<span class="brand-dot">.</span></span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-view="home"><svg><use href="#i-home"/></svg>Home</button>
+        <button class="nav-link" data-view="search"><svg><use href="#i-search"/></svg>Search</button>
+        <button class="nav-link" data-view="library"><svg><use href="#i-library"/></svg>Your Library</button>
+        <button class="nav-link" data-view="database"><svg><use href="#i-database"/></svg>Database Mode</button>
+      </nav>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-library-title"><span>YOUR MUSIC</span><button class="icon-btn" id="library-upload" title="Upload music" aria-label="Upload music"><svg><use href="#i-plus"/></svg></button></div>
+      <button class="sidebar-playlist" id="sidebar-liked"><div class="liked-icon"><svg><use href="#i-heart"/></svg></div><span><strong>Liked Songs</strong><small id="sidebar-liked-count">0 saved tracks</small></span></button>
+      <div id="sidebar-saved" class="sidebar-saved"></div>
+      <div class="sidebar-bottom"><span class="live-dot"></span> Original music for every mood</div>
+    </aside>
+
+    <main class="main-panel" id="main-panel">
+      <header class="topbar">
+        <div class="topbar-left"><span class="page-kicker" id="page-kicker">LISTEN YOUR WAY</span></div>
+        <div class="topbar-actions">
+          <button class="pill pill-outline" id="upload-button"><svg><use href="#i-plus"/></svg> Upload music</button>
+          <button class="text-button" id="register-button">Sign up</button>
+          <button class="pill pill-light" id="login-button">Log in</button>
+          <div class="account-wrap hidden" id="account-wrap"><button class="account-button" id="account-button" aria-expanded="false"><span id="account-avatar">P</span><span id="account-name">Account</span><span class="caret">⌄</span></button><div class="account-menu hidden" id="account-menu"><span id="account-role">Listener</span><button id="logout-button">Log out</button></div></div>
+        </div>
+      </header>
+
+      <div class="view" id="home-view">
+        <section class="welcome-section">
+          <div class="welcome-heading"><div><span class="section-kicker">YOUR DAILY MIX</span><h1 id="greeting">Good evening</h1></div><span class="welcome-date" id="today-label"></span></div>
+          <div class="quick-grid" id="quick-grid"></div>
+        </section>
+        <section class="content-section">
+          <div class="section-heading"><div><span class="section-kicker">DISCOVER SOMETHING NEW</span><h2>Made for every mood</h2><p>Original sounds, ready for your next moment.</p></div></div>
+          <div class="featured-grid" id="featured-grid"></div>
+        </section>
+        <section class="content-section catalog-section" id="catalog-section">
+          <div class="section-heading"><div><span class="section-kicker">THE COLLECTION</span><h2>All songs</h2><p>Save what you love to build your library.</p></div><span class="track-count" id="track-count">0 songs</span></div>
+          <div class="catalog-tools"><div class="search-row"><svg><use href="#i-search"/></svg><input id="search-input" type="search" placeholder="Search songs or artists" aria-label="Search songs or artists"><kbd>Ctrl K</kbd></div><div class="filter-pills" id="filter-pills"></div></div>
+          <div class="table-head"><span>#</span><span>Title</span><span>Genre</span><span>Duration</span><span></span></div>
+          <div id="track-list" class="track-list" aria-live="polite"></div>
+          <div id="empty-search" class="list-empty hidden">No songs match your search.</div>
+        </section>
+      </div>
+
+      <section class="view hidden" id="library-view">
+        <div class="playlist-hero"><div class="playlist-cover"><svg><use href="#i-heart"/></svg></div><div class="playlist-hero-copy"><span>PLAYLIST</span><h1>Liked Songs</h1><p>Your favorites, all in one place.</p><strong id="library-count">0 songs</strong></div></div>
+        <div class="library-content"><button class="big-play" id="play-library" aria-label="Play liked songs"><svg><use href="#i-play"/></svg></button><div class="table-head"><span>#</span><span>Title</span><span>Genre</span><span>Duration</span><span></span></div><div id="library-list" class="track-list"></div><div id="library-empty" class="list-empty">Your library is waiting. Tap the heart on any song to save it here.</div></div>
+      </section>
+
+      <section class="view hidden" id="database-view">
+        <div class="database-hero"><div class="database-hero-icon"><svg><use href="#i-database"/></svg></div><div><span class="section-kicker">UNDER THE HOOD</span><h1>Database Mode</h1><p>See how the browser, Node.js API, and data store connect.</p></div></div>
+        <div class="database-content">
+          <div class="db-status-card"><div><span class="section-kicker">CURRENT STORAGE</span><h2 id="db-name">Checking database…</h2><p id="db-note">Loading the current connection.</p></div><div class="db-badge" id="db-badge">Checking</div></div>
+          <div class="flow-grid"><div><span>01</span><strong>Browser</strong><small>HTML, CSS & JavaScript</small></div><b>→</b><div><span>02</span><strong>Node.js API</strong><small>Express routes</small></div><b>→</b><div><span>03</span><strong id="flow-storage">Database</strong><small id="flow-detail">Documents & audio</small></div></div>
+          <div class="section-heading db-heading"><div><span class="section-kicker">LIVE DATA</span><h2>Collections</h2><p>Safe previews of the records returned by the server.</p></div><button class="pill pill-outline" id="refresh-db">Refresh data</button></div>
+          <div class="collections-grid" id="collections-grid"></div>
+          <p class="db-footnote">Passwords and private account details are never shown in this view.</p>
+        </div>
+      </section>
+      <footer class="site-footer"><span class="footer-brand">pulse<span>.</span></span><span>Original tracks released as CC0.</span><span>Built with JavaScript, Node.js & MongoDB.</span></footer>
+    </main>
+  </div>
+
+  <div class="player" id="player">
+    <div class="player-track"><div class="player-art" id="player-art"><svg><use href="#i-music"/></svg></div><div class="player-meta"><strong id="player-title">Nothing playing</strong><span id="player-artist">Pick a song to get started</span></div><button class="player-save" id="player-save" aria-label="Save current song" disabled><svg><use href="#i-heart"/></svg></button></div>
+    <div class="player-center"><div class="player-controls"><button class="player-icon" id="previous-button" title="Previous track" aria-label="Previous track"><svg class="flip"><use href="#i-next"/></svg></button><button class="player-play" id="play-button" aria-label="Play" disabled><svg><use href="#i-play"/></svg></button><button class="player-icon" id="next-button" title="Next track" aria-label="Next track"><svg><use href="#i-next"/></svg></button></div><div class="progress"><span id="current-time">0:00</span><input id="seek" type="range" min="0" max="100" value="0" aria-label="Seek" disabled><span id="duration">0:00</span></div></div>
+    <div class="volume"><svg><use href="#i-volume"/></svg><input id="volume" type="range" min="0" max="100" value="75" aria-label="Volume"></div>
+  </div>
+  <audio id="audio"></audio>
+  <div class="toast hidden" id="toast" role="status"></div>
+
+  <dialog id="auth-dialog" class="modal"><form id="auth-form"><button type="button" class="modal-close" data-close="auth-dialog" aria-label="Close"><svg><use href="#i-close"/></svg></button><div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span>pulse<span class="brand-dot">.</span></div><p class="modal-kicker">WELCOME TO YOUR SOUND</p><h2 id="auth-title">Log in to Pulse</h2><p class="modal-subtitle" id="auth-subtitle">Pick up right where the music left off.</p><div class="auth-switch"><button type="button" class="selected" data-auth-mode="login">Log in</button><button type="button" data-auth-mode="register">Sign up</button></div><div id="register-fields" class="hidden"><label for="username">Username</label><input id="username" name="username" autocomplete="username"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"></div><div id="login-fields"><label for="identity">Username or email</label><input id="identity" name="identity" autocomplete="username"></div><label for="password">Password</label><input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required><label class="check-row hidden" id="artist-check"><input type="checkbox" id="artist-role"> I want to upload music as an artist</label><p class="form-error hidden" id="auth-error"></p><button type="submit" class="pill pill-accent full-width" id="auth-submit">Log in</button></form></dialog>
+  <dialog id="upload-dialog" class="modal"><form id="upload-form"><button type="button" class="modal-close" data-close="upload-dialog" aria-label="Close"><svg><use href="#i-close"/></svg></button><div class="upload-heading-icon"><svg><use href="#i-upload"/></svg></div><p class="modal-kicker">LET THE WORLD HEAR IT</p><h2>Upload your track</h2><p class="modal-subtitle">Every great sound starts somewhere.</p><label for="track-title">Track title</label><input id="track-title" name="title" placeholder="Give your song a name" maxlength="100" required><label for="audio-file">Audio file</label><label class="file-drop" for="audio-file"><svg><use href="#i-upload"/></svg><strong id="file-name">Choose an audio file</strong><span>MP3, WAV, or other audio · up to 25 MB</span></label><input id="audio-file" name="audio" type="file" accept="audio/*" required class="visually-hidden"><p class="form-error hidden" id="upload-error"></p><button type="submit" class="pill pill-accent full-width" id="upload-submit">Upload track</button></form></dialog>
+</body>
+</html>
+
